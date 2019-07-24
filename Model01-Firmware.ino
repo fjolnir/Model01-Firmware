@@ -1,4 +1,3 @@
-
 // -*- mode: c++ -*-
 // Copyright 2016 Keyboardio, inc. <jesse@keyboard.io>
 // See "LICENSE" for license details
@@ -13,6 +12,9 @@
     #include "Kaleidoscope-LED-Stalker.h"
     // Support for an LED mode that lets one configure per-layer color maps
     #include "Kaleidoscope-Colormap.h"
+
+// Support for Keyboardio's internal keyboard testing mode
+    #include "Kaleidoscope-HardwareTestMode.h"
 // Support for host power management (suspend & wakeup)
     #include "Kaleidoscope-HostPowerManagement.h"
 // Support for USB quirks, like changing the key state report protocol
@@ -102,6 +104,16 @@ KALEIDOSCOPE_INIT_PLUGINS(
     // editable keymap in EEPROM.
     EEPROMSettings,
     EEPROMKeymap,
+    // Focus allows bi-directional communication with the host, and is the
+    // interface through which the keymap in EEPROM can be edited.
+    Focus,
+    // FocusSettingsCommand adds a few Focus commands, intended to aid in
+    // changing some settings of the keyboard, such as the default layer (via the
+    // `settings.defaultLayer` command)
+    FocusSettingsCommand,
+    // FocusEEPROMCommand adds a set of Focus commands, which are very helpful in
+    // both debugging, and in backing up one's EEPROM contents.
+    FocusEEPROMCommand,
     // The HostPowerManagement plugin allows us to turn LEDs off when then host
     // goes to sleep, and resume them when it wakes up.
     HostPowerManagement,
@@ -110,6 +122,9 @@ KALEIDOSCOPE_INIT_PLUGINS(
     // nevertheless. Such as toggling the key report protocol between Boot (used
     // by BIOSes) and Report (NKRO).
     USBQuirks,
+    // The hardware test mode, which can be invoked by tapping Prog, LED and the
+    // left Fn button at the same time.
+    HardwareTestMode,
     // LED
     LEDControl,
     ColormapEffect,
